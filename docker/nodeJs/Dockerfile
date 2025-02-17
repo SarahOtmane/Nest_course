@@ -20,8 +20,5 @@ RUN npm run build
 
 ENV TZ=Europe/Paris
 
-#pour que l utilisateur ne soit pas root => couche de securite : l utilisateur node n a pas les droits de faire des install
-USER node
-
 # Commande pour démarrer l'application
 CMD ["npm", "run", "start:dev"]
