@@ -18,13 +18,14 @@ services:
       context: ./
       dockerfile: docker/sql/Dockerfile
     container_name: mysql-db
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - mysql_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -32,8 +33,8 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: rootpassword
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - mysql-db
 
