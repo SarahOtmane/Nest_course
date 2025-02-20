@@ -9,7 +9,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
     env_file:
       - .env
 
@@ -19,13 +20,20 @@ services:
       dockerfile: docker/sql/Dockerfile
     container_name: mysql-db
     restart: always
-    volumes:
-      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   phpmyadmin:
     image: phpmyadmin:latest
