@@ -1,8 +1,9 @@
 # Utiliser l'image Node.js officielle
-FROM node:20-slim
+FROM node:20.17-slim
+RUN apt-get update && apt-get install -y procps
 
 # Créer un dossier de travail
-WORKDIR /home/node/app
+WORKDIR /home/node/app/api
 
 # Copier le package.json et package-lock.json
 COPY ./api/package*.json ./
