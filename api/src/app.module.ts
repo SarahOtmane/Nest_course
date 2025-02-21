@@ -3,6 +3,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserModule } from './modules/usr.module';
+import { TimerModule } from './modules/timer.module';
+import { JwtMiddleware } from './modules/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +22,9 @@ import { AppService } from './app.service';
         synchronize: true,
       }),
     }),
+    UserModule,
+    TimerModule,
+    JwtMiddleware,
   ],
   controllers: [AppController],
   providers: [AppService],
