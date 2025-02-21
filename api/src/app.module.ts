@@ -10,11 +10,11 @@ import { AppService } from './app.service';
     SequelizeModule.forRootAsync({
       useFactory: () => ({
         dialect: 'mysql',
-        host: process.env.DB_HOST || 'mysql-db',
-        port: Number(process.env.DB_PORT) || 3306,
-        username: process.env.MYSQL_USER || 'root',
-        password: process.env.MYSQL_PASSWORD || 'password',
-        database: process.env.MYSQL_DATABASE || 'nestjs_app',
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
         autoLoadModels: true,
         synchronize: true,
       }),
