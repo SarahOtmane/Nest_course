@@ -1,13 +1,21 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
+
+export interface TimerCreationAttributes {
+  name: string;
+  duration: number;
+}
 
 @Table
-export class Timer extends Model {
-  @Column({ allowNull: false })
-  startTime: Date;
+export class Timer extends Model<Timer, TimerCreationAttributes> {
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  name: string;
 
-  @Column({ allowNull: false })
-  endTime: Date;
-
-  @Column
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
   duration: number;
 }
